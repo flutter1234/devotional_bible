@@ -4,7 +4,6 @@ import 'package:devotional_bible/Screens/bible_stories_screen/pdf_view_screen.da
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -12,7 +11,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:share/share.dart';
-
 import '../bible_devotional_screen/devotional_detail_screen.dart';
 
 class bible_stories_detail_screen extends StatefulWidget {
@@ -32,7 +30,6 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
   bool download = false;
   AudioPlayer player = AudioPlayer();
   bool audioPlay = false;
-
   Stream<PositionData> get positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         player.positionStream,
         player.bufferedPositionStream,
@@ -43,7 +40,6 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
           duration ?? Duration.zero,
         ),
       );
-
   void downloadAudio(String audioUrl) async {
     Dio dio = Dio();
     try {
@@ -53,7 +49,6 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
         download = false;
         setState(() {});
       });
-      print("Download completed");
     } catch (e) {
       print(e);
     }
