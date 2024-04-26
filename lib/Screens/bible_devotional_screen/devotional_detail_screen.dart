@@ -6,9 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:volume_controller/volume_controller.dart';
 
 class devotional_detail_screen extends StatefulWidget {
-    static const routeName = '/devotional_detail_screen';
+  static const routeName = '/devotional_detail_screen';
   final Map oneData;
 
   const devotional_detail_screen({super.key, required this.oneData});
@@ -20,6 +21,20 @@ class devotional_detail_screen extends StatefulWidget {
 class _devotional_detail_screenState extends State<devotional_detail_screen> {
   AudioPlayer player = AudioPlayer();
   bool audioPlay = false;
+  double volumeListenerValue = 0;
+  double getVolume = 0;
+  double setVolumeValue = 0;
+  bool volumeSlider = false;
+
+  @override
+  void initState() {
+    super.initState();
+    player = AudioPlayer()..setUrl('https://coinspinmaster.com/viral/iosapp/bible/kids bible/KC Devotional audio/${widget.oneData['title']}.mp3');
+    VolumeController().listener((volume) {
+      setState(() => volumeListenerValue = volume);
+    });
+    VolumeController().getVolume().then((volume) => setVolumeValue = volume);
+  }
 
   Stream<PositionData> get positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         player.positionStream,
@@ -33,14 +48,9 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
       );
 
   @override
-  void initState() {
-    player = AudioPlayer()..setUrl('https://coinspinmaster.com/viral/iosapp/bible/kids bible/KC Devotional audio/${widget.oneData['title']}.mp3');
-    super.initState();
-  }
-
-  @override
   void dispose() {
     player.dispose();
+    VolumeController().removeListener();
     super.dispose();
   }
 
@@ -128,64 +138,115 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
                       Padding(
                         padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
                         child: Container(
-                          height: 55.sp,
+                          height:  volumeSlider == true
+                              ?65.sp :55.sp,
                           width: 1.sw,
                           decoration: BoxDecoration(
                             color: Colors.black87,
                           ),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            padding: EdgeInsets.symmetric(horizontal: 10.sp,vertical: 5.sp),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    audioPlay = !audioPlay;
-                                    if (audioPlay == true) {
-                                      player.play();
-                                      print("https://coinspinmaster.com/viral/iosapp/bible/kids bible/KC Devotional audio/${widget.oneData['title']}.mp3");
-                                    } else {
-                                      player.pause();
-                                    }
-                                    setState(() {});
-                                  },
-                                  child: Icon(
-                                    audioPlay == true ? Icons.pause_outlined : Icons.play_arrow_rounded,
-                                    size: 25.sp,
-                                    color: Colors.white,
-                                  ),
+                                Spacer(),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        audioPlay = !audioPlay;
+                                        if (audioPlay == true) {
+                                          player.play();
+                                          print("https://coinspinmaster.com/viral/iosapp/bible/kids bible/KC Devotional audio/${widget.oneData['title']}.mp3");
+                                        } else {
+                                          player.pause();
+                                        }
+                                        setState(() {});
+                                      },
+                                      child: Icon(
+                                        audioPlay == true ? Icons.pause_outlined : Icons.play_arrow_rounded,
+                                        size: 25.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: StreamBuilder<PositionData>(
+                                        stream: positionDataStream,
+                                        builder: (context, snapshot) {
+                                          final positionData = snapshot.data;
+                                          return Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                                            child: ProgressBar(
+                                              barHeight: 5.sp,
+                                              timeLabelLocation: TimeLabelLocation.sides,
+                                              baseBarColor: Colors.white70,
+                                              bufferedBarColor: Colors.black12,
+                                              thumbColor: Colors.white,
+                                              thumbRadius: 5.r,
+                                              progressBarColor: Colors.white,
+                                              timeLabelTextStyle: TextStyle(
+                                                fontSize: 15.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                              timeLabelPadding: 2.sp,
+                                              progress: positionData?.position ?? Duration.zero,
+                                              buffered: positionData?.bufferedPosition ?? Duration.zero,
+                                              total: positionData?.duration ?? Duration.zero,
+                                              onSeek: player.seek,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        volumeSlider = !volumeSlider;
+                                        setState(() {});
+                                      },
+                                      child: Icon(
+                                        Icons.volume_up_sharp,
+                                        size: 25.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Expanded(
-                                  child: StreamBuilder<PositionData>(
-                                    stream: positionDataStream,
-                                    builder: (context, snapshot) {
-                                      final positionData = snapshot.data;
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                                        child: ProgressBar(
-                                          barHeight: 5.sp,
-                                          timeLabelLocation: TimeLabelLocation.sides,
-                                          baseBarColor: Colors.white70,
-                                          bufferedBarColor: Colors.black12,
-                                          thumbColor: Colors.white,
-                                          thumbRadius: 5.r,
-                                          progressBarColor: Colors.white,
-                                          timeLabelTextStyle: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w800,
-                                          ),
-                                          timeLabelPadding: 2.sp,
-                                          progress: positionData?.position ?? Duration.zero,
-                                          buffered: positionData?.bufferedPosition ?? Duration.zero,
-                                          total: positionData?.duration ?? Duration.zero,
-                                          onSeek: player.seek,
+                               Spacer(),
+                                volumeSlider == true
+                                    ? SizedBox(
+                                        width: 150.w,
+                                        height: 5.sp,
+                                        child: Slider(
+                                          min: 0,
+                                          max: 1,
+                                          inactiveColor: Colors.grey.shade500,
+                                          activeColor: Colors.white,
+                                          onChanged: (double value) {
+                                            setState(() {
+                                              player.setVolume(value);
+                                              setVolumeValue = value;
+                                              double volume = value;
+                                              if (setVolumeValue == 0) {
+                                                volume = 0;
+                                              } else if (setVolumeValue < getVolume) {
+                                                volume = getVolume - 0.1;
+                                                if (volume < 0) volume = 0;
+                                              } else if (setVolumeValue > getVolume) {
+                                                volume = getVolume + 0.1;
+                                                if (volume > 1) volume = 1;
+                                              }
+                                              getVolume = volume;
+                                              VolumeController().setVolume(getVolume);
+                                            });
+                                          },
+                                          value: setVolumeValue,
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ),
+                                      )
+                                    : SizedBox(),
+                                Spacer(),
                               ],
                             ),
                           ),
