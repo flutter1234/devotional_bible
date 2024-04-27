@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:just_audio/just_audio.dart';
@@ -32,6 +33,7 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
   bool download = false;
   AudioPlayer player = AudioPlayer();
   bool audioPlay = false;
+  FlutterTts flutterTts = FlutterTts();
 
   Stream<PositionData> get positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         player.positionStream,
@@ -381,12 +383,31 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                         padding: EdgeInsets.symmetric(vertical: 10.sp),
                         child: Column(
                           children: [
-                            Text(
-                              "MEMORY VERSE",
-                              style: GoogleFonts.archivoBlack(
-                                fontSize: 25.sp,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w800,
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "MEMORY VERSE",
+                                    style: GoogleFonts.archivoBlack(
+                                      fontSize: 25.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      flutterTts.speak("${widget.oneStories['Memory Verse']}");
+                                      setState(() {});
+                                    },
+                                    child: Icon(
+                                      Icons.mic,
+                                      size: 30.sp,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                             SizedBox(height: 20.h),

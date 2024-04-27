@@ -21,6 +21,8 @@ PODS:
     - OrderedSet (~> 5.0)
   - flutter_pdfview (1.0.2):
     - Flutter
+  - flutter_tts (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -172,6 +174,7 @@ DEPENDENCIES:
   - flutter_icmp_ping (from `.symlinks/plugins/flutter_icmp_ping/ios`)
   - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
   - flutter_pdfview (from `.symlinks/plugins/flutter_pdfview/ios`)
+  - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
@@ -222,6 +225,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_inappwebview_ios/ios"
   flutter_pdfview:
     :path: ".symlinks/plugins/flutter_pdfview/ios"
+  flutter_tts:
+    :path: ".symlinks/plugins/flutter_tts/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   google_mobile_ads:
@@ -265,6 +270,7 @@ SPEC CHECKSUMS:
   flutter_icmp_ping: 2b159955eee0c487c766ad83fec224ae35e7c935
   flutter_inappwebview_ios: 97215cf7d4677db55df76782dbd2930c5e1c1ea0
   flutter_pdfview: 25f53dd6097661e6395b17de506e6060585946bd
+  flutter_tts: 0f492aab6accf87059b72354fcb4ba934304771d
   fluttertoast: 9f2f8e81bb5ce18facb9748d7855bf5a756fe3db
   Google-Mobile-Ads-SDK: 58b4fda3f9758fc1ed210aa5cf7777b5eb55d47e
   google_mobile_ads: 511febb4768edc860ee455a9e201ff52de385908
