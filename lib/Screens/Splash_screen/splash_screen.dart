@@ -1,4 +1,3 @@
-import 'package:devotional_bible/Screens/Home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,14 +12,6 @@ class splash_screen extends StatefulWidget {
 }
 
 class _splash_screenState extends State<splash_screen> {
-  @override
-  void initState() {
-    Future.delayed(Duration(seconds: 3)).then((value) {
-      Navigator.pushNamed(context, home_screen.routeName);
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

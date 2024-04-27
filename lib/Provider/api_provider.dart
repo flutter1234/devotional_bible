@@ -11,6 +11,9 @@ class Api extends ChangeNotifier {
   int correctCount = 0;
   List keyList = [];
   List subKeyList = [];
+  List lessonComplete = [];
+  List featuredList = [];
+  List popularList = [];
 
   Future<void> devotionalData() async {
     var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/bible/kids bible/KC Devotional.json");

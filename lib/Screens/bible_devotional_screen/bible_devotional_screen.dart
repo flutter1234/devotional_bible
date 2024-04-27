@@ -1,4 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:devotional_bible/AdPlugin/Ads/Banner/BannerWrapper.dart';
+import 'package:devotional_bible/AdPlugin/Ads/FullScreen/Ads.dart';
+import 'package:devotional_bible/AdPlugin/Ads/Native/NativeRN.dart';
 import 'package:devotional_bible/Provider/api_provider.dart';
 import 'package:devotional_bible/Screens/bible_devotional_screen/devotional_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,120 +33,137 @@ class _bible_devotional_screenState extends State<bible_devotional_screen> {
   @override
   Widget build(BuildContext context) {
     Api dataProvider = Provider.of<Api>(context, listen: true);
-    return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        title: Text(
-          "KC Devotional",
-          style: GoogleFonts.figtree(
-            fontSize: 25.sp,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-      body: isLoading
-          ? Center(
-              child: CupertinoActivityIndicator(
-                color: Colors.white,
-                radius: 10.r,
-              ),
-            )
-          : GridView.builder(
-              itemCount: dataProvider.devotionalList['KC Devotional'].length,
-              padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 190.sp,
-                mainAxisSpacing: 10.sp,
-                crossAxisSpacing: 10.sp,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      devotional_detail_screen.routeName,
-                      arguments: {"oneData": dataProvider.devotionalList['KC Devotional'][index]},
-                    );
-                    print("oneData =======>>>${dataProvider.devotionalList['KC Devotional'][index]}");
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1.w, color: Colors.cyanAccent.shade400),
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: Colors.black45,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(9.r),
-                          child: CachedNetworkImage(
-                            height: 100.sp,
-                            width: 1.sw,
-                            imageUrl: dataProvider.devotionalList['KC Devotional'][index]['image'],
-                            fit: BoxFit.fill,
-                            errorWidget: (context, url, error) => Container(
-                              child: Center(
-                                child: Icon(
-                                  Icons.error,
-                                  color: Colors.white,
-                                  size: 25.sp,
-                                ),
-                              ),
-                            ),
-                            placeholder: (context, url) => Container(
-                              child: Center(
-                                child: CupertinoActivityIndicator(
-                                  color: Colors.white,
-                                  radius: 5.r,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h),
-                          child: Text(
-                            "${dataProvider.devotionalList['KC Devotional'][index]['title']}",
-                            style: GoogleFonts.figtree(
-                              fontSize: 16.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 2.h),
-                          child: Text(
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            "${dataProvider.devotionalList['KC Devotional'][index]['shortnote']}",
-                            style: GoogleFonts.figtree(
-                              fontSize: 14.sp,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                      ],
-                    ),
-                  ),
-                );
-              },
+    return BannerWrapper(
+      parentContext: context,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
             ),
+          ),
+          backgroundColor: Colors.transparent,
+          title: Text(
+            "KC Devotional",
+            style: GoogleFonts.figtree(
+              fontSize: 25.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        body: isLoading
+            ? Center(
+                child: CupertinoActivityIndicator(
+                  color: Colors.white,
+                  radius: 10.r,
+                ),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    NativeRN(parentContext: context),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: dataProvider.devotionalList['KC Devotional'].length,
+                      padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 190.sp,
+                        mainAxisSpacing: 10.sp,
+                        crossAxisSpacing: 10.sp,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            AdsRN().showFullScreen(
+                              context: context,
+                              onComplete: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  devotional_detail_screen.routeName,
+                                  arguments: {"oneData": dataProvider.devotionalList['KC Devotional'][index]},
+                                );
+                              },
+                            );
+                            // print("oneData =======>>>${dataProvider.devotionalList['KC Devotional'][index]}");
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1.w, color: Colors.cyanAccent.shade400),
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: Colors.black45,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(9.r),
+                                  child: CachedNetworkImage(
+                                    height: 100.sp,
+                                    width: 1.sw,
+                                    imageUrl: dataProvider.devotionalList['KC Devotional'][index]['image'],
+                                    fit: BoxFit.fill,
+                                    errorWidget: (context, url, error) => Container(
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.error,
+                                          color: Colors.white,
+                                          size: 25.sp,
+                                        ),
+                                      ),
+                                    ),
+                                    placeholder: (context, url) => Container(
+                                      child: Center(
+                                        child: CupertinoActivityIndicator(
+                                          color: Colors.white,
+                                          radius: 5.r,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h),
+                                  child: Text(
+                                    "${dataProvider.devotionalList['KC Devotional'][index]['title']}",
+                                    style: GoogleFonts.figtree(
+                                      fontSize: 16.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 2.h),
+                                  child: Text(
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    "${dataProvider.devotionalList['KC Devotional'][index]['shortnote']}",
+                                    style: GoogleFonts.figtree(
+                                      fontSize: 14.sp,
+                                      color: Colors.white70,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+      ),
     );
   }
 }
