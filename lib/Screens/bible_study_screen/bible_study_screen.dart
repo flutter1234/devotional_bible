@@ -11,6 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../AdPlugin/MainJson/MainJson.dart';
+
 class bible_study_screen extends StatefulWidget {
   static const routeName = '/bible_study_screen';
 
@@ -26,10 +28,9 @@ class _bible_study_screenState extends State<bible_study_screen> {
   @override
   void initState() {
     Api dataProvider = Provider.of<Api>(context, listen: false);
-
-    context.read<Api>().studyData().then((value) {
+    context.read<Api>().studyData(context.read<MainJson>().data!['assets']['bibleStudy']).then((value) {
       dataProvider.lessonComplete = storage.read("lessonComplete") ?? [];
-      print("lessonComplete ===========>>>>${dataProvider.lessonComplete}");
+      // print("lessonComplete ===========>>>>${dataProvider.lessonComplete}");
       isLoading = false;
     });
     super.initState();
@@ -42,11 +43,18 @@ class _bible_study_screenState extends State<bible_study_screen> {
       parentContext: context,
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 35.sp,
+          leadingWidth: 50.w,
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
             child: Icon(
+              size: isIpad
+                  ? 23.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               Icons.arrow_back_ios,
               color: Colors.white,
             ),
@@ -55,7 +63,11 @@ class _bible_study_screenState extends State<bible_study_screen> {
           title: Text(
             "God\'s Big Story",
             style: GoogleFonts.figtree(
-              fontSize: 25.sp,
+              fontSize: isIpad
+                  ? 20.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
@@ -90,95 +102,137 @@ class _bible_study_screenState extends State<bible_study_screen> {
                       child: Column(
                         children: [
                           index == 1 ? NativeRN(parentContext: context) : SizedBox(),
-                          Container(
-                            height: 225.sp,
-                            width: 1.sw,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: Colors.black45,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(9.r),
-                                  child: CachedNetworkImage(
-                                    height: 140.sp,
-                                    width: 1.sw,
-                                    imageUrl: dataProvider.bibleStudyList['Bible Study'][index]['thumble'],
-                                    fit: BoxFit.cover,
-                                    errorWidget: (context, url, error) => Container(
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.error,
-                                          color: Colors.white,
-                                          size: 25.sp,
-                                        ),
-                                      ),
-                                    ),
-                                    placeholder: (context, url) => Container(
-                                      child: Center(
-                                        child: CupertinoActivityIndicator(
-                                          color: Colors.white,
-                                          radius: 5.r,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                          Stack(
+                            alignment: Alignment.topLeft,
+                            clipBehavior: Clip.none,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: index % 2 != 0 ? 0 : 30.h, bottom: index % 2 == 0 ? 0 : 30.h),
+                                height: isIpad
+                                    ? 150.sp
+                                    : isSmall
+                                        ? 180.sp
+                                        : 180.sp,
+                                width: 1.sw,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  color: Colors.black45,
                                 ),
-                                Spacer(),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(9.r),
+                                      child: CachedNetworkImage(
+                                        height: isIpad
+                                            ? 150.sp
+                                            : isSmall
+                                                ? 180.sp
+                                                : 180.sp,
+                                        width: 1.sw,
+                                        imageUrl: dataProvider.bibleStudyList['Bible Study'][index]['thumble'],
+                                        fit: BoxFit.cover,
+                                        errorWidget: (context, url, error) => Container(
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: Colors.white,
+                                              size: 25.sp,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) => Container(
+                                          child: Center(
+                                            child: CupertinoActivityIndicator(
+                                              color: Colors.white,
+                                              radius: 5.r,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                left: index % 2 == 0 ? 0 : null,
+                                bottom: index % 2 != 0 ? 0 : null,
+                                right: index % 2 != 0 ? 0 : null,
+                                child: Stack(
+                                  alignment: Alignment.centerLeft,
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(top: 25, left: 30.w),
+                                      height: 75.sp,
+                                      width: 210.w,
+                                      decoration: BoxDecoration(
+                                        color: dataProvider.lessonComplete.contains(dataProvider.bibleStudyList['Bible Study'][index]['title']) ? Colors.yellow.shade700 : Colors.black,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 20.w),
+                                      height: 75.sp,
+                                      width: 210.w,
+                                      decoration: BoxDecoration(
+                                        color: dataProvider.lessonComplete.contains(dataProvider.bibleStudyList['Bible Study'][index]['title']) ? Colors.white : Colors.yellow.shade700,
+                                        border: Border.all(width: 1.w, color: Colors.black),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 30.w),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               "Lesson ${index + 1}",
                                               style: GoogleFonts.figtree(
-                                                fontSize: 20.sp,
-                                                color: Colors.white70,
+                                                fontSize: isIpad
+                                                    ? 16.sp
+                                                    : isSmall
+                                                        ? 18.sp
+                                                        : 17.sp,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.w800,
                                               ),
                                             ),
                                             Text(
                                               "${dataProvider.bibleStudyList['Bible Study'][index]['title']}",
-                                              style: GoogleFonts.figtree(
-                                                fontSize: 22.sp,
-                                                color: Colors.white,
+                                              style: GoogleFonts.amaranth(
+                                                fontSize: isIpad
+                                                    ? 15.sp
+                                                    : isSmall
+                                                        ? 16.sp
+                                                        : 17.sp,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.w800,
                                               ),
                                             ),
-                                            SizedBox(height: 5.h),
                                           ],
                                         ),
                                       ),
-                                      dataProvider.lessonComplete.contains(dataProvider.bibleStudyList['Bible Study'][index]['title'])
-                                          ? Container(
-                                              height: 45.sp,
-                                              width: 45.w,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.white,
-                                                border: Border.all(width: 4.w, color: Colors.green.shade700),
-                                              ),
-                                              child: Icon(
-                                                Icons.check,
-                                                size: 25.sp,
-                                                color: Colors.green,
-                                              ),
-                                            )
-                                          : SizedBox.shrink(),
-                                    ],
-                                  ),
+                                    ),
+                                    dataProvider.lessonComplete.contains(dataProvider.bibleStudyList['Bible Study'][index]['title'])
+                                        ? Container(
+                                            height: 45.sp,
+                                            width: 45.w,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                              border: Border.all(width: 4.w, color: Colors.green.shade700),
+                                            ),
+                                            child: Icon(
+                                              Icons.check,
+                                              size: 25.sp,
+                                              color: Colors.green,
+                                            ),
+                                          )
+                                        : SizedBox.shrink(),
+                                  ],
                                 ),
-                                Spacer(),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

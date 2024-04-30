@@ -10,7 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import '../../AdPlugin/MainJson/MainJson.dart';
 import '../../Provider/api_provider.dart';
+import '../../main.dart';
 
 class bible_stories_screen extends StatefulWidget {
   static const routeName = '/bible_stories_screen';
@@ -27,7 +29,7 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
   @override
   void initState() {
     Api dataProvider = Provider.of<Api>(context, listen: false);
-    context.read<Api>().storiesData().then((value) {
+    context.read<Api>().storiesData(context.read<MainJson>().data!['assets']['bibleStories']).then((value) {
       dataProvider.keyList.clear();
       dataProvider.bibleStoriesList['Bible Stories'].forEach((element) {
         dataProvider.keyList.addAll(element.keys.toList());
@@ -44,7 +46,6 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
     dataProvider.featuredList.clear();
     for (int i = 0; i < dataProvider.bibleStoriesList['Bible Stories'].length; i++) {
       int randomIndex = Random().nextInt(dataProvider.bibleStoriesList['Bible Stories'][i][dataProvider.keyList[i]].length);
-      print("randomIndex =====>>>${randomIndex}");
       List subKeyList = [];
       dataProvider.bibleStoriesList['Bible Stories'][i][dataProvider.keyList[i]].forEach((element) {
         subKeyList.addAll(element.keys.toList());
@@ -55,7 +56,7 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
         dataProvider.featuredList.add(dataProvider.bibleStoriesList['Bible Stories'][i][dataProvider.keyList[i]][randomIndex][subKeyList[randomIndex]][randomIndex2]);
       }
       dataProvider.featuredList.shuffle();
-      print("featuredList =======>>>>${dataProvider.featuredList}");
+      // print("featuredList =======>>>>${dataProvider.featuredList}");
     }
   }
 
@@ -64,7 +65,7 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
     dataProvider.popularList.clear();
     for (int i = 0; i < dataProvider.bibleStoriesList['Bible Stories'].length; i++) {
       int randomIndex = Random().nextInt(dataProvider.bibleStoriesList['Bible Stories'][i][dataProvider.keyList[i]].length);
-      print("randomIndex =====>>>${randomIndex}");
+      // print("randomIndex =====>>>${randomIndex}");
       List subKeyList = [];
       dataProvider.bibleStoriesList['Bible Stories'][i][dataProvider.keyList[i]].forEach((element) {
         subKeyList.addAll(element.keys.toList());
@@ -75,7 +76,7 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
         dataProvider.popularList.add(dataProvider.bibleStoriesList['Bible Stories'][i][dataProvider.keyList[i]][randomIndex][subKeyList[randomIndex]][randomIndex2]);
       }
       dataProvider.popularList.shuffle();
-      print("featuredList =======>>>>${dataProvider.popularList}");
+      // print("featuredList =======>>>>${dataProvider.popularList}");
     }
   }
 
@@ -86,11 +87,18 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
       parentContext: context,
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 35.sp,
+          leadingWidth: 50.w,
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
             child: Icon(
+              size: isIpad
+                  ? 23.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               Icons.arrow_back_ios,
               color: Colors.white,
             ),
@@ -99,7 +107,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
           title: Text(
             "Bible Stories",
             style: GoogleFonts.figtree(
-              fontSize: 25.sp,
+              fontSize: isIpad
+                  ? 20.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
@@ -120,7 +132,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                       children: [
                         Icon(
                           Icons.star,
-                          size: 35.sp,
+                          size: isIpad
+                              ? 28.sp
+                              : isSmall
+                                  ? 30.sp
+                                  : 35.sp,
                           color: Colors.lightGreen,
                         ),
                         SizedBox(width: 5.w),
@@ -128,7 +144,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                           textAlign: TextAlign.center,
                           "FEATURED",
                           style: GoogleFonts.archivoBlack(
-                            fontSize: 25.sp,
+                            fontSize: isIpad
+                                ? 20.sp
+                                : isSmall
+                                    ? 22.sp
+                                    : 25.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
                           ),
@@ -136,7 +156,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                       ],
                     ),
                     SizedBox(
-                      height: 200.sp,
+                      height: isIpad
+                          ? 170.sp
+                          : isSmall
+                              ? 180.sp
+                              : 210.sp,
                       child: ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.only(left: 10.w, top: 10.h),
@@ -167,7 +191,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                     alignment: Alignment.center,
                                     children: [
                                       Container(
-                                        height: 150.sp,
+                                        height: isIpad
+                                            ? 120.sp
+                                            : isSmall
+                                                ? 130.sp
+                                                : 150.sp,
                                         width: 250.w,
                                         decoration: BoxDecoration(
                                           color: Colors.black54,
@@ -175,9 +203,9 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                           borderRadius: BorderRadius.circular(10.r),
                                         ),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(9.r),
+                                          borderRadius: BorderRadius.circular(isIpad ? 7.r : 9.r),
                                           child: CachedNetworkImage(
-                                            height: 100.sp,
+                                            height: isSmall ? 130.sp : 150.sp,
                                             width: 1.sw,
                                             imageUrl: dataProvider.featuredList[index]['image'],
                                             fit: BoxFit.fill,
@@ -202,8 +230,8 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                         ),
                                       ),
                                       Container(
-                                        height: 60.sp,
-                                        width: 60.w,
+                                        height: isIpad ? 50.sp : 60.sp,
+                                        width: isIpad ? 50.w : 60.w,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           border: Border.all(width: 4.w, color: Colors.white),
@@ -211,7 +239,7 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                         ),
                                         child: Icon(
                                           Icons.play_arrow,
-                                          size: 45.sp,
+                                          size: isIpad ? 40.sp : 45.sp,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -219,12 +247,17 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 10.h),
+                              SizedBox(height: isSmall ? 7.h : 10.h),
                               Text(
                                 textAlign: TextAlign.center,
+                                maxLines: 2,
                                 "${dataProvider.featuredList[index]['title']}",
                                 style: GoogleFonts.figtree(
-                                  fontSize: 20.sp,
+                                  fontSize: isIpad
+                                      ? 16.sp
+                                      : isSmall
+                                          ? 18.sp
+                                          : 20.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -243,7 +276,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                       children: [
                         Icon(
                           Icons.favorite,
-                          size: 35.sp,
+                          size: isIpad
+                              ? 28.sp
+                              : isSmall
+                                  ? 30.sp
+                                  : 35.sp,
                           color: Colors.purpleAccent.shade700,
                         ),
                         SizedBox(width: 5.w),
@@ -251,7 +288,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                           textAlign: TextAlign.center,
                           "POPULAR",
                           style: GoogleFonts.archivoBlack(
-                            fontSize: 25.sp,
+                            fontSize: isIpad
+                                ? 20.sp
+                                : isSmall
+                                    ? 22.sp
+                                    : 25.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
                           ),
@@ -259,7 +300,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                       ],
                     ),
                     SizedBox(
-                      height: 200.sp,
+                      height: isIpad
+                          ? 170.sp
+                          : isSmall
+                              ? 180.sp
+                              : 210.sp,
                       child: ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.only(left: 10.w, top: 10.h),
@@ -290,7 +335,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                     alignment: Alignment.center,
                                     children: [
                                       Container(
-                                        height: 150.sp,
+                                        height: isIpad
+                                            ? 120.sp
+                                            : isSmall
+                                                ? 130.sp
+                                                : 150.sp,
                                         width: 250.w,
                                         decoration: BoxDecoration(
                                           color: Colors.black54,
@@ -298,9 +347,9 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                           borderRadius: BorderRadius.circular(10.r),
                                         ),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(9.r),
+                                          borderRadius: BorderRadius.circular(isIpad ? 7.r : 9.r),
                                           child: CachedNetworkImage(
-                                            height: 100.sp,
+                                            height: isSmall ? 130.sp : 150.sp,
                                             width: 1.sw,
                                             imageUrl: dataProvider.popularList[index]['image'],
                                             fit: BoxFit.fill,
@@ -325,8 +374,8 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                         ),
                                       ),
                                       Container(
-                                        height: 60.sp,
-                                        width: 60.w,
+                                        height: isIpad ? 50.sp : 60.sp,
+                                        width: isIpad ? 50.w : 60.w,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           border: Border.all(width: 4.w, color: Colors.white),
@@ -334,7 +383,7 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                         ),
                                         child: Icon(
                                           Icons.play_arrow,
-                                          size: 45.sp,
+                                          size: isIpad ? 40.sp : 45.sp,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -342,12 +391,16 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 10.h),
+                              SizedBox(height: isSmall ? 7.h : 10.h),
                               Text(
                                 textAlign: TextAlign.center,
                                 "${dataProvider.popularList[index]['title']}",
                                 style: GoogleFonts.figtree(
-                                  fontSize: 20.sp,
+                                  fontSize: isIpad
+                                      ? 16.sp
+                                      : isSmall
+                                          ? 18.sp
+                                          : 20.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -372,14 +425,22 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15.sp),
                               child: Container(
-                                height: 60.sp,
+                                height: isIpad
+                                    ? 48.sp
+                                    : isSmall
+                                        ? 55.sp
+                                        : 60.sp,
                                 width: 1.sw,
                                 child: Center(
                                   child: Text(
                                     textAlign: TextAlign.center,
                                     "${dataProvider.keyList[index]}",
                                     style: GoogleFonts.archivoBlack(
-                                      fontSize: 22.sp,
+                                      fontSize: isIpad
+                                          ? 16.sp
+                                          : isSmall
+                                              ? 18.sp
+                                              : 20.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -388,7 +449,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                               ),
                             ),
                             SizedBox(
-                              height: 210.sp,
+                              height: isIpad
+                                  ? 170.sp
+                                  : isSmall
+                                      ? 180.sp
+                                      : 200.sp,
                               child: ListView.builder(
                                 itemCount: dataProvider.bibleStoriesList['Bible Stories'][index][dataProvider.keyList[index]].length,
                                 padding: EdgeInsets.only(left: 10.w),
@@ -429,7 +494,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                                 alignment: Alignment.center,
                                                 children: [
                                                   Container(
-                                                    height: 150.sp,
+                                                    height: isIpad
+                                                        ? 120.sp
+                                                        : isSmall
+                                                            ? 130.sp
+                                                            : 150.sp,
                                                     width: 250.w,
                                                     decoration: BoxDecoration(
                                                       color: Colors.black54,
@@ -439,7 +508,11 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                                     child: ClipRRect(
                                                       borderRadius: BorderRadius.circular(9.r),
                                                       child: CachedNetworkImage(
-                                                        height: 100.sp,
+                                                        height: isIpad
+                                                            ? 120.sp
+                                                            : isSmall
+                                                                ? 130.sp
+                                                                : 150.sp,
                                                         width: 1.sw,
                                                         imageUrl: dataProvider.bibleStoriesList['Bible Stories'][index][dataProvider.keyList[index]][index1][subKeyList[index1]][index2]['image'],
                                                         fit: BoxFit.fill,
@@ -464,8 +537,8 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    height: 60.sp,
-                                                    width: 60.w,
+                                                    height: isIpad ? 50.sp : 60.sp,
+                                                    width: isIpad ? 50.w : 60.w,
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       border: Border.all(width: 4.w, color: Colors.white),
@@ -473,7 +546,7 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                                     ),
                                                     child: Icon(
                                                       Icons.play_arrow,
-                                                      size: 45.sp,
+                                                      size: isIpad ? 40.sp : 45.sp,
                                                       color: Colors.white,
                                                     ),
                                                   ),
@@ -481,12 +554,22 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: 10.h),
+                                          SizedBox(
+                                              height: isIpad
+                                                  ? 5.h
+                                                  : isSmall
+                                                      ? 7.h
+                                                      : 10.h),
                                           Text(
                                             textAlign: TextAlign.center,
+                                            maxLines: 2,
                                             "${dataProvider.bibleStoriesList['Bible Stories'][index][dataProvider.keyList[index]][index1][subKeyList[index1]][index2]['title']}",
                                             style: GoogleFonts.figtree(
-                                              fontSize: 20.sp,
+                                              fontSize: isIpad
+                                                  ? 16.sp
+                                                  : isSmall
+                                                      ? 18.sp
+                                                      : 20.sp,
                                               color: Colors.white,
                                               fontWeight: FontWeight.w700,
                                             ),

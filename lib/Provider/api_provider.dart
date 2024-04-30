@@ -14,21 +14,22 @@ class Api extends ChangeNotifier {
   List lessonComplete = [];
   List featuredList = [];
   List popularList = [];
+  late String url;
 
-  Future<void> devotionalData() async {
-    var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/bible/kids bible/KC Devotional.json");
+
+  Future<void> devotionalData(var Url) async {
+    var url = Uri.parse(Url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      // devotionalList = jsonDecode(response.body);
       devotionalList = json.decode(utf8.decode(response.bodyBytes));
       notifyListeners();
     }
-    print("devotionalList ==========>>>>${devotionalList}");
+    // print("devotionalList ==========>>>>${devotionalList}");
     notifyListeners();
   }
 
-  Future<void> studyData() async {
-    var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/bible/kids bible/Bible Study.json");
+  Future<void> studyData(var Url) async {
+    var url = Uri.parse(Url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       bibleStudyList = json.decode(utf8.decode(response.bodyBytes));
@@ -38,14 +39,20 @@ class Api extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> storiesData() async {
-    var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/bible/kids bible/Bible Stories.json");
+  Future<void> storiesData(var Url) async {
+    var url = Uri.parse(Url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       bibleStoriesList = json.decode(utf8.decode(response.bodyBytes));
       notifyListeners();
     }
-    print("bibleStudyList ==========>>>>${bibleStoriesList}");
+    // print("bibleStudyList ==========>>>>${bibleStoriesList}");
     notifyListeners();
+  }
+
+  Future<void> launchurl() async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch ${Uri.parse(url)}');
+    }
   }
 }

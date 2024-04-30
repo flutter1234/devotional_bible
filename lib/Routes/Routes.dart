@@ -1,4 +1,5 @@
 import 'package:devotional_bible/Screens/Home_screen/home_screen.dart';
+import 'package:devotional_bible/Screens/Setting_screen/setting_screen.dart';
 import 'package:devotional_bible/Screens/Splash_screen/splash_screen.dart';
 import 'package:devotional_bible/Screens/bible_devotional_screen/bible_devotional_screen.dart';
 import 'package:devotional_bible/Screens/bible_devotional_screen/devotional_detail_screen.dart';
@@ -73,6 +74,11 @@ class Router {
           builder: (_) => pdf_view_screen(
             pdf: settings.arguments,
           ),
+        );
+      case setting_screen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => setting_screen(),
         );
       default:
         return MaterialPageRoute(

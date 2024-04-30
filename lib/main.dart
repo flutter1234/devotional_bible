@@ -75,9 +75,9 @@ class _MyAppState extends State<MyApp> {
                       // "trailerspot4k.com",
                     ],
                     jsonUrl: const [
-                      "https://miracocopepsi.com/admin/mayur/coc/office/github/ads_demo.json",
+                      "https://miracocopepsi.com/admin/mayur/coc/viral/iosapp/jenis/devotional_bible/kids bible/main.json",
                       "https://coinspinmaster.com/viral/iosapp/jenis/devotional_bible/kids bible/main.json",
-                      "https://trailerspot4k.com/raj/ios/anime/json/main.json"
+                      "https://trailerspot4k.com/viral/iosapp/jenis/devotional_bible/kids bible/main.json"
                     ],
                     version: '1.0.0',
                     child: const splash_screen()),

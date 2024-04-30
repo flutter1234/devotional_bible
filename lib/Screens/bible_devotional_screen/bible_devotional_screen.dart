@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:devotional_bible/AdPlugin/Ads/FullScreen/Ads.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Native/NativeRN.dart';
+import 'package:devotional_bible/AdPlugin/MainJson/MainJson.dart';
 import 'package:devotional_bible/Provider/api_provider.dart';
 import 'package:devotional_bible/Screens/bible_devotional_screen/devotional_detail_screen.dart';
+import 'package:devotional_bible/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +26,7 @@ class _bible_devotional_screenState extends State<bible_devotional_screen> {
 
   @override
   void initState() {
-    context.read<Api>().devotionalData().then((value) {
+    context.read<Api>().devotionalData(context.read<MainJson>().data!['assets']['devotionalBible']).then((value) {
       isLoading = false;
     });
     super.initState();
@@ -37,11 +39,18 @@ class _bible_devotional_screenState extends State<bible_devotional_screen> {
       parentContext: context,
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 35.sp,
+          leadingWidth: 50.w,
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
             child: Icon(
+              size: isIpad
+                  ? 23.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               Icons.arrow_back_ios,
               color: Colors.white,
             ),
@@ -50,7 +59,11 @@ class _bible_devotional_screenState extends State<bible_devotional_screen> {
           title: Text(
             "KC Devotional",
             style: GoogleFonts.figtree(
-              fontSize: 25.sp,
+              fontSize: isIpad
+                  ? 20.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
@@ -74,7 +87,7 @@ class _bible_devotional_screenState extends State<bible_devotional_screen> {
                       padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisExtent: 190.sp,
+                        mainAxisExtent: isIpad ? 170.sp : 200.sp,
                         mainAxisSpacing: 10.sp,
                         crossAxisSpacing: 10.sp,
                       ),
@@ -105,7 +118,11 @@ class _bible_devotional_screenState extends State<bible_devotional_screen> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(9.r),
                                   child: CachedNetworkImage(
-                                    height: 100.sp,
+                                    height: isSmall
+                                        ? 90.sp
+                                        : isIpad
+                                            ? 90.sp
+                                            : 100.sp,
                                     width: 1.sw,
                                     imageUrl: dataProvider.devotionalList['KC Devotional'][index]['image'],
                                     fit: BoxFit.fill,
@@ -133,7 +150,11 @@ class _bible_devotional_screenState extends State<bible_devotional_screen> {
                                   child: Text(
                                     "${dataProvider.devotionalList['KC Devotional'][index]['title']}",
                                     style: GoogleFonts.figtree(
-                                      fontSize: 16.sp,
+                                      fontSize: isIpad
+                                          ? 12.sp
+                                          : isSmall
+                                              ? 14.sp
+                                              : 15.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w800,
                                     ),
@@ -147,7 +168,11 @@ class _bible_devotional_screenState extends State<bible_devotional_screen> {
                                     overflow: TextOverflow.ellipsis,
                                     "${dataProvider.devotionalList['KC Devotional'][index]['shortnote']}",
                                     style: GoogleFonts.figtree(
-                                      fontSize: 14.sp,
+                                      fontSize: isIpad
+                                          ? 10.sp
+                                          : isSmall
+                                              ? 12.sp
+                                              : 13.sp,
                                       color: Colors.white70,
                                       fontWeight: FontWeight.w600,
                                     ),

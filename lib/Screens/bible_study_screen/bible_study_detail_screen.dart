@@ -9,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 import '../../Provider/api_provider.dart';
 import '../../main.dart';
 
@@ -30,7 +29,7 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
   void initState() {
     Api dataProvider = Provider.of<Api>(context, listen: false);
     dataProvider.correctCount = storage.read(dataProvider.bibleStudyList['Bible Study'][widget.oneDataStudy]['title']) ?? 0;
-    print("correctCount ======>>>${dataProvider.bibleStudyList['Bible Study'][widget.oneDataStudy]['title']}");
+    // print("correctCount ======>>>${dataProvider.bibleStudyList['Bible Study'][widget.oneDataStudy]['title']}");
     controller = YoutubePlayerController(
       initialVideoId: '${YoutubePlayer.convertUrlToId(dataProvider.bibleStudyList['Bible Study'][widget.oneDataStudy]['videourl'])}',
       flags: YoutubePlayerFlags(
@@ -57,28 +56,14 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
         return BannerWrapper(
           parentContext: context,
           child: Scaffold(
-            // appBar: AppBar(
-            //   leading: GestureDetector(
-            //     onTap: () {
-            //       Navigator.pop(context);
-            //     },
-            //     child: Icon(
-            //       Icons.arrow_back_ios,
-            //       color: Colors.white,
-            //     ),
-            //   ),
-            //   backgroundColor: Colors.transparent,
-            //   title: Text(
-            //     "${widget.oneDataStudy['title']}",
-            //     style: GoogleFonts.figtree(
-            //       fontSize: 25.sp,
-            //       color: Colors.white,
-            //       fontWeight: FontWeight.w700,
-            //     ),
-            //   ),
-            // ),
             body: Padding(
-              padding: EdgeInsets.only(top: 45.h),
+              padding: EdgeInsets.only(
+                top: isIpad
+                    ? 30.h
+                    : isSmall
+                        ? 35.h
+                        : 45.h,
+              ),
               child: Column(
                 children: [
                   Padding(
@@ -87,11 +72,19 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: 90.sp,
-                          width: 90.w,
+                          height: isIpad
+                              ? 65.sp
+                              : isSmall
+                                  ? 80.sp
+                                  : 90.sp,
+                          width: isIpad
+                              ? 65.w
+                              : isSmall
+                                  ? 80.w
+                                  : 90.w,
                           decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.black, border: Border.all(width: 2.w, color: Colors.white)),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(42.r),
+                            borderRadius: BorderRadius.circular(isIpad ? 48.r : 42.r),
                             child: CachedNetworkImage(
                               imageUrl: dataProvider.bibleStudyList['Bible Study'][widget.oneDataStudy]['thumble'],
                               fit: BoxFit.fill,
@@ -121,8 +114,16 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                             setState(() {});
                           },
                           child: Container(
-                            height: 45.sp,
-                            width: 45.w,
+                            height: isIpad
+                                ? 40.sp
+                                : isSmall
+                                    ? 40.sp
+                                    : 45.sp,
+                            width: isIpad
+                                ? 40.w
+                                : isSmall
+                                    ? 40.w
+                                    : 45.w,
                             decoration: BoxDecoration(
                               border: Border.all(width: 1.w, color: Colors.white),
                               color: HexColor('622663'),
@@ -131,7 +132,11 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                             child: Center(
                               child: Icon(
                                 Icons.close,
-                                size: 30.sp,
+                                size: isIpad
+                                    ? 25.sp
+                                    : isSmall
+                                        ? 25.sp
+                                        : 30.sp,
                                 color: Colors.white70,
                               ),
                             ),
@@ -140,7 +145,7 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: isIpad ? 5.h : 10.h),
                   SizedBox(
                     height: 20.sp,
                     child: Align(
@@ -175,7 +180,11 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                       child: Text(
                         "Correct Answer",
                         style: GoogleFonts.figtree(
-                          fontSize: 20.sp,
+                          fontSize: isIpad
+                              ? 16.sp
+                              : isSmall
+                                  ? 18.sp
+                                  : 20.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),
@@ -183,11 +192,16 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 25.w, right: 25.w, top: 10.h),
+                    padding: EdgeInsets.only(left: isIpad ? 15.w : 25.w, right: isIpad ? 15.w : 25.w, top: isIpad ? 5.h : 10.h),
                     child: Text(
+                      textAlign: TextAlign.center,
                       "${dataProvider.bibleStudyList['Bible Study'][widget.oneDataStudy]['title']}",
                       style: GoogleFonts.figtree(
-                        fontSize: 30.sp,
+                        fontSize: isIpad
+                            ? 20.sp
+                            : isSmall
+                                ? 26.sp
+                                : 28.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                       ),
@@ -195,7 +209,11 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                      top: 20.h,
+                      top: isIpad
+                          ? 5.h
+                          : isSmall
+                              ? 10.h
+                              : 20.h,
                       left: 15.w,
                       right: 15.w,
                     ),
@@ -211,11 +229,17 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 20.sp),
+                    padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: isIpad ? 5.sp : 20.sp),
                     child: Text(
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       "${dataProvider.bibleStudyList['Bible Study'][widget.oneDataStudy]['Note']}",
                       style: GoogleFonts.figtree(
-                        fontSize: 24.sp,
+                        fontSize: isIpad
+                            ? 15.sp
+                            : isSmall
+                                ? 18.sp
+                                : 20.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                       ),
@@ -239,7 +263,11 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                       // print(widget.oneDataStudy);
                     },
                     child: Container(
-                      height: 55.sp,
+                      height: isIpad
+                          ? 40.sp
+                          : isSmall
+                              ? 45.sp
+                              : 55.sp,
                       width: 150.w,
                       decoration: BoxDecoration(
                         color: Colors.black45,
@@ -250,7 +278,11 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                         child: Text(
                           "START QUIZ!",
                           style: GoogleFonts.figtree(
-                            fontSize: 22.sp,
+                            fontSize: isIpad
+                                ? 18.sp
+                                : isSmall
+                                    ? 20.sp
+                                    : 22.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
                           ),

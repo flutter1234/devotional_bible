@@ -2,13 +2,17 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Native/NativeRN.dart';
+import 'package:devotional_bible/AdPlugin/MainJson/MainJson.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:volume_controller/volume_controller.dart';
+
+import '../../main.dart';
 
 class devotional_detail_screen extends StatefulWidget {
   static const routeName = '/devotional_detail_screen';
@@ -31,7 +35,7 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
   @override
   void initState() {
     super.initState();
-    player = AudioPlayer()..setUrl('https://coinspinmaster.com/viral/iosapp/bible/kids bible/KC Devotional audio/${widget.oneData['title']}.mp3');
+    player = AudioPlayer()..setUrl('${context.read<MainJson>().data!['imageUrl']}/${widget.oneData['title']}.mp3');
     VolumeController().listener((volume) {
       setState(() => volumeListenerValue = volume);
     });
@@ -62,11 +66,18 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
       parentContext: context,
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 35.sp,
+          leadingWidth: 50.w,
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
             child: Icon(
+              size: isIpad
+                  ? 23.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               Icons.arrow_back_ios,
               color: Colors.white,
             ),
@@ -75,7 +86,11 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
           title: Text(
             "${widget.oneData['title']}",
             style: GoogleFonts.figtree(
-              fontSize: 25.sp,
+              fontSize: isIpad
+                  ? 20.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
@@ -86,7 +101,7 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
+                  padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: isIpad ? 5.sp : 10.sp),
                   child: Container(
                     height: 150.sp,
                     width: 1.sw,
@@ -134,7 +149,11 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
                         Text(
                           "${widget.oneData['qna'][index]['tital']}",
                           style: GoogleFonts.figtree(
-                            fontSize: 28.sp,
+                            fontSize: isIpad
+                                ? 23.sp
+                                : isSmall
+                                    ? 25.sp
+                                    : 28.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w800,
                           ),
@@ -266,11 +285,15 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
                                 widget.oneData['qna'][index]['details'][index1]['title'] == null
                                     ? SizedBox()
                                     : Padding(
-                                        padding: EdgeInsets.only(top: 20.h),
+                                        padding: EdgeInsets.only(top: isIpad ? 10.h : 20.h),
                                         child: Text(
                                           "${widget.oneData['qna'][index]['details'][index1]['title']}",
                                           style: GoogleFonts.archivoBlack(
-                                            fontSize: 28.sp,
+                                            fontSize: isIpad
+                                                ? 22.sp
+                                                : isSmall
+                                                    ? 25.sp
+                                                    : 28.sp,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w800,
                                           ),
@@ -282,19 +305,27 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
                                         textAlign: TextAlign.justify,
                                         "${widget.oneData['qna'][index]['details'][index1]['details']}",
                                         style: GoogleFonts.figtree(
-                                          fontSize: 18.sp,
+                                          fontSize: isIpad
+                                              ? 14.sp
+                                              : isSmall
+                                                  ? 16.sp
+                                                  : 18.sp,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w800,
                                         ),
                                       ),
                                 widget.oneData['qna'][index]['details'][index1]['type'] == 'image'
                                     ? Padding(
-                                        padding: EdgeInsets.only(top: 30.h),
+                                        padding: EdgeInsets.only(top: isIpad ? 15.h : 30.h),
                                         child: Text(
                                           textAlign: TextAlign.justify,
                                           "Casey's Day",
                                           style: GoogleFonts.archivoBlack(
-                                            fontSize: 30.sp,
+                                            fontSize: isIpad
+                                                ? 22.sp
+                                                : isSmall
+                                                    ? 27.sp
+                                                    : 30.sp,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w800,
                                           ),

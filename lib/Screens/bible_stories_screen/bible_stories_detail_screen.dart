@@ -14,6 +14,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:share/share.dart';
+import '../../main.dart';
 import '../bible_devotional_screen/devotional_detail_screen.dart';
 
 class bible_stories_detail_screen extends StatefulWidget {
@@ -82,12 +83,19 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
       parentContext: context,
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 35.sp,
+          leadingWidth: 50.w,
           leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
               setState(() {});
             },
             child: Icon(
+              size: isIpad
+                  ? 23.sp
+                  : isSmall
+                      ? 23.sp
+                      : 25.sp,
               Icons.arrow_back_ios,
               color: Colors.white,
             ),
@@ -96,7 +104,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
           title: Text(
             "${widget.oneStories['title']}",
             style: GoogleFonts.figtree(
-              fontSize: 25.sp,
+              fontSize: isIpad
+                  ? 20.sp
+                  : isSmall
+                      ? 23.sp
+                      : 24.sp,
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
@@ -135,7 +147,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                     textAlign: TextAlign.center,
                                     "${widget.oneStories['title']}",
                                     style: GoogleFonts.archivoBlack(
-                                      fontSize: 28.sp,
+                                      fontSize: isIpad
+                                          ? 22.sp
+                                          : isSmall
+                                              ? 25.sp
+                                              : 26.sp,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w900,
                                     ),
@@ -144,7 +160,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                     textAlign: TextAlign.center,
                                     "${widget.oneStories['note']}",
                                     style: GoogleFonts.figtree(
-                                      fontSize: 25.sp,
+                                      fontSize: isIpad
+                                          ? 19.sp
+                                          : isSmall
+                                              ? 22.sp
+                                              : 24.sp,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -156,7 +176,7 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                       setState(() {});
                                     },
                                     child: Container(
-                                      height: 50.sp,
+                                      height: isIpad ? 45.sp : 50.sp,
                                       width: 160.w,
                                       decoration: BoxDecoration(
                                         border: Border.all(width: 1.w, color: Colors.white),
@@ -168,7 +188,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                           textAlign: TextAlign.center,
                                           "Before You Listen",
                                           style: GoogleFonts.figtree(
-                                            fontSize: 20.sp,
+                                            fontSize: isIpad
+                                                ? 15.sp
+                                                : isSmall
+                                                    ? 17.sp
+                                                    : 18.sp,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w800,
                                           ),
@@ -182,7 +206,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                           ),
                         ),
                         Container(
-                          height: 80.sp,
+                          height: isIpad
+                              ? 60.sp
+                              : isSmall
+                                  ? 70.sp
+                                  : 80.sp,
                           width: 1.sw,
                           decoration: BoxDecoration(
                             color: HexColor('873e9f'),
@@ -207,15 +235,27 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                     setState(() {});
                                   },
                                   child: Container(
-                                    height: 55.sp,
-                                    width: 55.w,
+                                    height: isIpad
+                                        ? 45.sp
+                                        : isSmall
+                                            ? 50.sp
+                                            : 55.sp,
+                                    width: isIpad
+                                        ? 45.w
+                                        : isSmall
+                                            ? 50.w
+                                            : 55.w,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.white,
                                     ),
                                     child: Icon(
                                       audioPlay == true ? Icons.pause_outlined : Icons.play_arrow_rounded,
-                                      size: 40.sp,
+                                      size: isIpad
+                                          ? 32.sp
+                                          : isSmall
+                                              ? 35.sp
+                                              : 40.sp,
                                       color: HexColor('873e9f'),
                                     ),
                                   ),
@@ -345,7 +385,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                     ),
                   ),
                   Container(
-                    height: 70.sp,
+                    height: isIpad
+                        ? 50.sp
+                        : isSmall
+                            ? 60.sp
+                            : 70.sp,
                     width: 1.sw,
                     decoration: BoxDecoration(
                       border: Border(
@@ -362,7 +406,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                       child: Text(
                         "AFTER YOU LISTEN",
                         style: GoogleFonts.archivoBlack(
-                          fontSize: 28.sp,
+                          fontSize: isIpad
+                              ? 22.sp
+                              : isSmall
+                                  ? 25.sp
+                                  : 26.sp,
                           color: Colors.white,
                           fontWeight: FontWeight.w900,
                         ),
@@ -391,7 +439,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                   Text(
                                     "MEMORY VERSE",
                                     style: GoogleFonts.archivoBlack(
-                                      fontSize: 25.sp,
+                                      fontSize: isIpad
+                                          ? 20.sp
+                                          : isSmall
+                                              ? 22.sp
+                                              : 24.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w800,
                                     ),
@@ -417,7 +469,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                 textAlign: TextAlign.center,
                                 "${widget.oneStories['Memory Verse']}",
                                 style: GoogleFonts.figtree(
-                                  fontSize: 25.sp,
+                                  fontSize: isIpad
+                                      ? 20.sp
+                                      : isSmall
+                                          ? 22.sp
+                                          : 24.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -441,12 +497,19 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                         padding: EdgeInsets.symmetric(vertical: 10.sp),
                         child: Column(
                           children: [
-                            Text(
-                              "QUIZ",
-                              style: GoogleFonts.archivoBlack(
-                                fontSize: 25.sp,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
+                            Padding(
+                              padding: EdgeInsets.all(2.sp),
+                              child: Text(
+                                "QUIZ",
+                                style: GoogleFonts.archivoBlack(
+                                  fontSize: isIpad
+                                      ? 20.sp
+                                      : isSmall
+                                          ? 22.sp
+                                          : 24.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900,
+                                ),
                               ),
                             ),
                             Padding(
@@ -464,7 +527,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                       Text(
                                         "${quizIndex + 1}.  ${widget.oneStories['quiz'][quizIndex]['Question']}",
                                         style: GoogleFonts.figtree(
-                                          fontSize: 22.sp,
+                                          fontSize: isIpad
+                                              ? 18.sp
+                                              : isSmall
+                                                  ? 20.sp
+                                                  : 22.sp,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -483,7 +550,7 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                             color: Colors.red.shade700,
                                           ),
                                           child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                                            padding: EdgeInsets.symmetric(horizontal: 6.sp),
                                             child: Row(
                                               children: [
                                                 Icon(
@@ -495,7 +562,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                                 Text(
                                                   answerShow ? "Hide The Answer" : "Show The Answer",
                                                   style: GoogleFonts.figtree(
-                                                    fontSize: 18.sp,
+                                                    fontSize: isIpad
+                                                        ? 15.sp
+                                                        : isSmall
+                                                            ? 16.sp
+                                                            : 17.sp,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -513,7 +584,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                                 child: Text(
                                                   "A: ${widget.oneStories['quiz'][quizIndex]['Answers']}",
                                                   style: GoogleFonts.figtree(
-                                                    fontSize: 25.sp,
+                                                    fontSize: isIpad
+                                                        ? 20.sp
+                                                        : isSmall
+                                                            ? 22.sp
+                                                            : 24.sp,
                                                     color: Colors.lightGreen,
                                                     fontWeight: FontWeight.w900,
                                                   ),
@@ -521,7 +596,7 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                               ),
                                             )
                                           : SizedBox(
-                                              height: 80.sp,
+                                              height: isIpad ? 60.sp : 80.sp,
                                             ),
                                     ],
                                   ),
@@ -591,7 +666,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                             Text(
                               "REFLECT",
                               style: GoogleFonts.archivoBlack(
-                                fontSize: 30.sp,
+                                fontSize: isIpad
+                                    ? 25.sp
+                                    : isSmall
+                                        ? 27.sp
+                                        : 28.sp,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -603,7 +682,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                 textAlign: TextAlign.justify,
                                 "${widget.oneStories['Reflect']}",
                                 style: GoogleFonts.figtree(
-                                  fontSize: 22.sp,
+                                  fontSize: isIpad
+                                      ? 17.sp
+                                      : isSmall
+                                          ? 19.sp
+                                          : 21.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -630,7 +713,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                             Text(
                               "CHALLENGE",
                               style: GoogleFonts.archivoBlack(
-                                fontSize: 30.sp,
+                                fontSize: isIpad
+                                    ? 25.sp
+                                    : isSmall
+                                        ? 27.sp
+                                        : 28.sp,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -642,7 +729,11 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                 textAlign: TextAlign.justify,
                                 "${widget.oneStories['Challenge']}",
                                 style: GoogleFonts.figtree(
-                                  fontSize: 22.sp,
+                                  fontSize: isIpad
+                                      ? 17.sp
+                                      : isSmall
+                                          ? 19.sp
+                                          : 21.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
                                 ),
