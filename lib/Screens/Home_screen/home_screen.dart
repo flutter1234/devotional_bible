@@ -1,5 +1,6 @@
 import 'package:devotional_bible/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:devotional_bible/AdPlugin/Ads/FullScreen/Ads.dart';
+import 'package:devotional_bible/Screens/Ebook_screen/ebook_screen.dart';
 import 'package:devotional_bible/Screens/Setting_screen/setting_screen.dart';
 import 'package:devotional_bible/Screens/bible_devotional_screen/bible_devotional_screen.dart';
 import 'package:devotional_bible/Screens/bible_stories_screen/bible_stories_screen.dart';
@@ -50,7 +51,7 @@ class _home_screenState extends State<home_screen> {
                   ? 24.sp
                   : isSmall
                       ? 30.sp
-                      : 35.sp,
+                      : 32.sp,
               color: Colors.white,
               fontWeight: FontWeight.w700,
             ),
@@ -207,6 +208,57 @@ class _home_screenState extends State<home_screen> {
                                   : isSmall
                                       ? 25.sp
                                       : 28.sp,
+                              color: Colors.yellow.shade700,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: isIpad ? 5.sp : 10.sp),
+                  child: GestureDetector(
+                    onTap: () {
+                      AdsRN().showFullScreen(
+                        context: context,
+                        onComplete: () {
+                          Navigator.pushNamed(context, ebook_screen.routeName);
+                        },
+                      );
+                      setState(() {});
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          height: isSmall
+                              ? 160.sp
+                              : isIpad
+                                  ? 155.sp
+                                  : 180.sp,
+                          width: 1.sw,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            border: Border.all(width: 3.w, color: Colors.black54),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(isIpad ? 5.r : 7.r),
+                            child: Image.asset(fit: BoxFit.fill, "assets/images/ebook_home.png"),
+                          ),
+                        ),
+                        Positioned(
+                          top: 10.h,
+                          left: 10.w,
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            "GOD\'S BIG \n EBOOK",
+                            style: GoogleFonts.lobster(
+                              fontSize: isIpad
+                                  ? 22.sp
+                                  : isSmall
+                                      ? 22.sp
+                                      : 25.sp,
                               color: Colors.yellow.shade700,
                               fontWeight: FontWeight.w700,
                             ),

@@ -42,6 +42,7 @@ class AdSplashScreen extends HookWidget {
   Widget build(BuildContext context) {
     List<int> pingTimes = [];
     List<Ping> pingsList = [];
+    // ignore: unused_local_variable
     Timer rateUsTimer;
 
     final currentFetchIndex = useState<int>(0);

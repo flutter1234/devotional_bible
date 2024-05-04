@@ -35,7 +35,7 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
   @override
   void initState() {
     super.initState();
-    player = AudioPlayer()..setUrl('${context.read<MainJson>().data!['imageUrl']}/${widget.oneData['title']}.mp3');
+    player = AudioPlayer()..setUrl('${context.read<MainJson>().data!['audioUrl']}/${widget.oneData['title']}.mp3');
     VolumeController().listener((volume) {
       setState(() => volumeListenerValue = volume);
     });

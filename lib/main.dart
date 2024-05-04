@@ -18,11 +18,12 @@ import 'AdPlugin/Utils/NavigationService.dart';
 
 Future<void> main() async {
   await GetStorage.init();
-  runApp(MyApp());
   WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+  runApp(MyApp());
 }
 
 GetStorage storage = GetStorage();

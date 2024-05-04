@@ -320,6 +320,7 @@ class AdsRN {
     AdLoaderProvider loaderProvider = context.read<AdLoaderProvider>();
     loaderProvider.isAdLoading = true;
     int index =
+        // ignore: unnecessary_null_comparison
         actionName != null ? (routeIndex[actionName] ?? 0) : currentAdIndex;
     if ((mainJson.data![mainJson.version]['globalConfig']['globalAdFlag'] ??
             false) ==
@@ -580,6 +581,7 @@ class AdsRN {
     String? route = ModalRoute.of(context)?.settings.name;
     AdLoaderProvider loaderProvider = context.read<AdLoaderProvider>();
     loaderProvider.isAdLoading = true;
+    // ignore: unnecessary_null_comparison
     int index = actionName != null
         ? (routeIndex['$route/$actionName'] ?? 0)
         : currentAdIndex;

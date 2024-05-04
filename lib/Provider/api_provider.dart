@@ -7,6 +7,7 @@ class Api extends ChangeNotifier {
   Map devotionalList = {};
   Map bibleStudyList = {};
   Map bibleStoriesList = {};
+  Map eBooksList = {};
   int questionIndex = 0;
   int correctCount = 0;
   List keyList = [];
@@ -15,7 +16,6 @@ class Api extends ChangeNotifier {
   List featuredList = [];
   List popularList = [];
   late String url;
-
 
   Future<void> devotionalData(var Url) async {
     var url = Uri.parse(Url);
@@ -47,6 +47,17 @@ class Api extends ChangeNotifier {
       notifyListeners();
     }
     // print("bibleStudyList ==========>>>>${bibleStoriesList}");
+    notifyListeners();
+  }
+
+  Future<void> ebooksData(var Url) async {
+    var url = Uri.parse(Url);
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      eBooksList = json.decode(utf8.decode(response.bodyBytes));
+      notifyListeners();
+    }
+    // print("eBooksList ==========>>>>${eBooksList}");
     notifyListeners();
   }
 

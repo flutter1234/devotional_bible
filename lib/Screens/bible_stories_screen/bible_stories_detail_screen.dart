@@ -12,8 +12,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:share/share.dart';
+import '../../AdPlugin/MainJson/MainJson.dart';
 import '../../main.dart';
 import '../bible_devotional_screen/devotional_detail_screen.dart';
 
@@ -67,7 +69,7 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
 
   @override
   void initState() {
-    player = AudioPlayer()..setUrl('https://coinspinmaster.com/viral/iosapp/bible/kids bible/bible stories audio/${widget.oneStories['title']}.mp3');
+    player = AudioPlayer()..setUrl('${context.read<MainJson>().data!['audioUrlStories']}/${widget.oneStories['title']}.mp3');
     super.initState();
   }
 
@@ -228,7 +230,6 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                     audioPlay = !audioPlay;
                                     if (audioPlay == true) {
                                       player.play();
-                                      print("https://coinspinmaster.com/viral/iosapp/bible/kids bible/bible stories audio/${widget.oneStories['title']}.mp3");
                                     } else {
                                       player.pause();
                                     }
@@ -323,7 +324,7 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                                   Navigator.pushNamed(
                                     context,
                                     pdf_view_screen.routeName,
-                                    arguments: "https://coinspinmaster.com/viral/iosapp/bible/kids bible/bible stories pdf/${widget.oneStories['title']}.pdf",
+                                    arguments: "${context.read<MainJson>().data!['StoriesPdf']}/${widget.oneStories['title']}.pdf",
                                   );
                                 },
                                 child: Container(
@@ -339,7 +340,7 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  File pdfFile = File('https://coinspinmaster.com/viral/iosapp/bible/kids bible/bible stories pdf/${widget.oneStories['title']}.pdf');
+                                  File pdfFile = File('${context.read<MainJson>().data!['StoriesPdf']}/${widget.oneStories['title']}.pdf');
                                   String subject = 'Sharing PDF';
                                   String message = 'Check out this PDF file!';
                                   sharePdfFile(pdfFile, subject, message);
@@ -359,7 +360,7 @@ class _bible_stories_detail_screenState extends State<bible_stories_detail_scree
                               GestureDetector(
                                 onTap: () {
                                   download = true;
-                                  downloadAudio("https://coinspinmaster.com/viral/iosapp/bible/kids bible/bible stories audio/${widget.oneStories['title']}.mp3");
+                                  downloadAudio("${context.read<MainJson>().data!['StoriesPdf']}/${widget.oneStories['title']}.mp3");
                                   setState(() {});
                                 },
                                 child: Container(

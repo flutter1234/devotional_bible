@@ -1,3 +1,6 @@
+import 'package:devotional_bible/Screens/Ebook_screen/ebook_detail_screen.dart';
+import 'package:devotional_bible/Screens/Ebook_screen/ebook_pdf_view_screen.dart';
+import 'package:devotional_bible/Screens/Ebook_screen/ebook_screen.dart';
 import 'package:devotional_bible/Screens/Home_screen/home_screen.dart';
 import 'package:devotional_bible/Screens/Setting_screen/setting_screen.dart';
 import 'package:devotional_bible/Screens/Splash_screen/splash_screen.dart';
@@ -79,6 +82,26 @@ class Router {
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => setting_screen(),
+        );
+      case ebook_screen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => ebook_screen(),
+        );
+      case ebook_detail_screen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => ebook_detail_screen(
+            oneDataEbook: settings.arguments['oneDataEbook'],
+            index: settings.arguments['index'],
+          ),
+        );
+      case ebook_pdf_view_screen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => ebook_pdf_view_screen(
+            pdf: settings.arguments,
+          ),
         );
       default:
         return MaterialPageRoute(
