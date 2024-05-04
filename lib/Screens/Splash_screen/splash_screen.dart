@@ -16,18 +16,29 @@ class _splash_screenState extends State<splash_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Spacer(flex: 3),
           Center(
-            child: Text(
-              "Loading...",
-              style: GoogleFonts.figtree(
-                fontSize: 25.sp,
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25.r),
+              child: Image(
+                fit: BoxFit.cover,
+                height: 125.sp,
+                width: 125.w,
+                image: AssetImage('assets/images/kids_bible_splash.png'),
               ),
             ),
           ),
+          Spacer(flex: 2),
+          Text(
+            'Loading...',
+            style: GoogleFonts.rubik(
+              fontSize: 25.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Spacer(),
         ],
       ),
     );

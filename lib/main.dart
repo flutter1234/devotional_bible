@@ -1,6 +1,7 @@
 import 'package:dart_ping_ios/dart_ping_ios.dart';
 import 'package:devotional_bible/AdPlugin/Utils/Extensions.dart';
 import 'package:devotional_bible/Provider/api_provider.dart';
+import 'package:devotional_bible/Screens/Home_screen/home_screen.dart';
 import 'package:devotional_bible/Screens/Splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,14 +66,14 @@ class _MyAppState extends State<MyApp> {
                       "/splash_screen".performAction(
                         context: context,
                         onComplete: () {
-                          Navigator.pushReplacementNamed(context, splash_screen.routeName);
+                          Navigator.pushReplacementNamed(context, home_screen.routeName);
                         },
                       );
                     },
                     servers: const [
-                      "miracocopepsi.com",
+                      // "miracocopepsi.com",
                       "coinspinmaster.com",
-                      "trailerspot4k.com",
+                      // "trailerspot4k.com",
                     ],
                     jsonUrl: const [
                       "https://miracocopepsi.com/admin/mayur/coc/viral/iosapp/jenis/devotional_bible/kids bible/main.json",
