@@ -54,6 +54,7 @@ dependencies:
   volume_controller: ^2.0.7
   flutter_tts: ^4.0.2
   permission_handler: ^11.3.1
+  delayed_widget: ^1.1.2
 
   #ads:
   dio: ^5.4.3+1

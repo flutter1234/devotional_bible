@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class pdf_view_screen extends StatefulWidget {
@@ -22,7 +23,6 @@ class _pdf_view_screenState extends State<pdf_view_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SfPdfViewer.network(
         '${widget.pdf}',
         key: _pdfViewerKey,

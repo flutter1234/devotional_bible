@@ -71,9 +71,9 @@ class _MyAppState extends State<MyApp> {
                       );
                     },
                     servers: const [
-                      // "miracocopepsi.com",
+                      "miracocopepsi.com",
                       "coinspinmaster.com",
-                      // "trailerspot4k.com",
+                      "trailerspot4k.com",
                     ],
                     jsonUrl: const [
                       "https://miracocopepsi.com/admin/mayur/coc/viral/iosapp/jenis/devotional_bible/kids bible/main.json",
@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
                     version: '1.0.0',
                     child: const splash_screen()),
                 theme: ThemeData(
-                  scaffoldBackgroundColor: HexColor('006DAE'),
+                  scaffoldBackgroundColor: Colors.transparent,
                 ),
                 navigatorKey: NavigationService.navigatorKey,
                 onGenerateRoute: r.Router.onRouteGenrator,

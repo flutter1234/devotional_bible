@@ -7,6 +7,7 @@ import 'package:devotional_bible/Screens/Splash_screen/splash_screen.dart';
 import 'package:devotional_bible/Screens/bible_devotional_screen/bible_devotional_screen.dart';
 import 'package:devotional_bible/Screens/bible_devotional_screen/devotional_detail_screen.dart';
 import 'package:devotional_bible/Screens/bible_stories_screen/bible_stories_detail_screen.dart';
+import 'package:devotional_bible/Screens/bible_stories_screen/devotional_bible_view_screen.dart';
 import 'package:devotional_bible/Screens/bible_stories_screen/pdf_view_screen.dart';
 import 'package:devotional_bible/Screens/bible_study_screen/bible_study_detail_screen.dart';
 import 'package:devotional_bible/Screens/bible_study_screen/bible_study_quiz_screen.dart';
@@ -69,6 +70,14 @@ class Router {
           settings: settings,
           builder: (_) => bible_stories_detail_screen(
             oneStories: settings.arguments['oneStories'],
+          ),
+        );
+      case devotional_bible_view_screen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => devotional_bible_view_screen(
+            viewData: settings.arguments['View All'],
+            keyName: settings.arguments['KeyName'],
           ),
         );
       case pdf_view_screen.routeName:
