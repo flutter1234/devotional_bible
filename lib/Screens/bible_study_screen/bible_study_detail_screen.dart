@@ -53,19 +53,19 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
         ),
       ),
       builder: (context, player) {
-        return BannerWrapper(
-          parentContext: context,
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  HexColor('9165ff'),
-                  HexColor('b48bfe'),
-                ],
-              ),
+        return Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                HexColor('9165ff'),
+                HexColor('b48bfe'),
+              ],
             ),
+          ),
+          child: BannerWrapper(
+            parentContext: context,
             child: Scaffold(
               body: Padding(
                 padding: EdgeInsets.only(
@@ -124,33 +124,31 @@ class _bible_study_detail_screenState extends State<bible_study_detail_screen> {
                               Navigator.pop(context);
                               setState(() {});
                             },
-                            child: Positioned(
-                              child: Container(
-                                height: isIpad
-                                    ? 40.sp
-                                    : isSmall
-                                        ? 40.sp
-                                        : 45.sp,
-                                width: isIpad
-                                    ? 40.w
-                                    : isSmall
-                                        ? 40.w
-                                        : 45.w,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1.w, color: Colors.white),
-                                  color: HexColor('622663'),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.close,
-                                    size: isIpad
-                                        ? 25.sp
-                                        : isSmall
-                                            ? 25.sp
-                                            : 30.sp,
-                                    color: Colors.white70,
-                                  ),
+                            child: Container(
+                              height: isIpad
+                                  ? 40.sp
+                                  : isSmall
+                                      ? 40.sp
+                                      : 45.sp,
+                              width: isIpad
+                                  ? 40.w
+                                  : isSmall
+                                      ? 40.w
+                                      : 45.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 1.w, color: Colors.white),
+                                color: HexColor('622663'),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.close,
+                                  size: isIpad
+                                      ? 25.sp
+                                      : isSmall
+                                          ? 25.sp
+                                          : 30.sp,
+                                  color: Colors.white70,
                                 ),
                               ),
                             ),

@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Native/NativeRN.dart';
 import 'package:devotional_bible/Screens/Ebook_screen/ebook_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -117,59 +117,71 @@ class _ebook_screenState extends State<ebook_screen> {
                                 },
                               );
                             },
-                            child: Container(
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: Colors.black45, border: Border.all(width: 1.w, color: Colors.grey.shade800)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    child: CachedNetworkImage(
-                                      height: isIpad
-                                          ? 120.sp
-                                          : isSmall
-                                              ? 130.sp
-                                              : 140.sp,
-                                      width: 1.sw,
-                                      imageUrl: dataProvider.eBooksList['ebooks'][index]['image'],
-                                      fit: BoxFit.fill,
-                                      errorWidget: (context, url, error) => Container(
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.error,
-                                            color: Colors.white,
-                                            size: 25.sp,
-                                          ),
-                                        ),
-                                      ),
-                                      placeholder: (context, url) => Container(
-                                        child: Center(
-                                          child: CupertinoActivityIndicator(
-                                            color: Colors.white,
-                                            radius: 5.r,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 5.w, top: isIpad ? 15.h:isSmall ? 10.h : 5.h, right: 2.w),
-                                    child: Text(
-                                      maxLines: 2,
-                                      "${dataProvider.eBooksList['ebooks'][index]['Name']}",
-                                      style: GoogleFonts.figtree(
-                                        fontSize: isIpad
-                                            ? 15.sp
+                            child: DelayedWidget(
+                              animation: index % 2 == 0 ? DelayedAnimations.SLIDE_FROM_LEFT : DelayedAnimations.SLIDE_FROM_RIGHT,
+                              delayDuration: Duration(milliseconds: 150),
+                              animationDuration: Duration(seconds: 1),
+                              child: Container(
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r), color: Colors.black45, border: Border.all(width: 1.w, color: Colors.grey.shade800)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      child: CachedNetworkImage(
+                                        height: isIpad
+                                            ? 120.sp
                                             : isSmall
-                                                ? 14.sp
-                                                : 16.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w800,
+                                                ? 130.sp
+                                                : 140.sp,
+                                        width: 1.sw,
+                                        imageUrl: dataProvider.eBooksList['ebooks'][index]['image'],
+                                        fit: BoxFit.fill,
+                                        errorWidget: (context, url, error) => Container(
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: Colors.white,
+                                              size: 25.sp,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) => Container(
+                                          child: Center(
+                                            child: CupertinoActivityIndicator(
+                                              color: Colors.white,
+                                              radius: 5.r,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Spacer(),
-                                ],
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: 5.w,
+                                          top: isIpad
+                                              ? 15.h
+                                              : isSmall
+                                                  ? 10.h
+                                                  : 5.h,
+                                          right: 2.w),
+                                      child: Text(
+                                        maxLines: 2,
+                                        "${dataProvider.eBooksList['ebooks'][index]['Name']}",
+                                        style: GoogleFonts.figtree(
+                                          fontSize: isIpad
+                                              ? 15.sp
+                                              : isSmall
+                                                  ? 14.sp
+                                                  : 16.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                    ),
+                                    Spacer(),
+                                  ],
+                                ),
                               ),
                             ),
                           );

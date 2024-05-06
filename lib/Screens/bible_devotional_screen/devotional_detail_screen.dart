@@ -1,5 +1,6 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Native/NativeRN.dart';
 import 'package:devotional_bible/AdPlugin/MainJson/MainJson.dart';
@@ -407,73 +408,78 @@ class _devotional_detail_screenState extends State<devotional_detail_screen> {
           imageShow == true
               ? Scaffold(
                   backgroundColor: Colors.black38,
-                  body: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            imageShow = false;
-                            print(imageShow);
-                            setState(() {});
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                            child: Stack(
-                              alignment: Alignment.topRight,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(right: 15.w, top: 15.h),
-                                  child: CachedNetworkImage(
-                                    height: 280.sp,
-                                    width: 1.sw,
-                                    imageUrl: image,
-                                    fit: BoxFit.fill,
-                                    errorWidget: (context, url, error) => Container(
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.error,
-                                          color: Colors.white,
-                                          size: 25.sp,
+                  body: DelayedWidget(
+                    animation: DelayedAnimations.SLIDE_FROM_BOTTOM,
+                    delayDuration: Duration(milliseconds: 150),
+                    animationDuration: Duration(seconds: 1),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              imageShow = false;
+                              print(imageShow);
+                              setState(() {});
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                              child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(right: 15.w, top: 15.h),
+                                    child: CachedNetworkImage(
+                                      height: 280.sp,
+                                      width: 1.sw,
+                                      imageUrl: image,
+                                      fit: BoxFit.fill,
+                                      errorWidget: (context, url, error) => Container(
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.error,
+                                            color: Colors.white,
+                                            size: 25.sp,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    placeholder: (context, url) => Container(
-                                      child: Center(
-                                        child: CupertinoActivityIndicator(
-                                          color: Colors.white,
-                                          radius: 5.r,
+                                      placeholder: (context, url) => Container(
+                                        child: Center(
+                                          child: CupertinoActivityIndicator(
+                                            color: Colors.white,
+                                            radius: 5.r,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      imageShow = false;
-                                    });
-                                  },
-                                  child: Container(
-                                    height: isIpad ? 35.sp : 40.sp,
-                                    width: isIpad ? 35.w : 40.w,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.black87,
-                                      border: Border.all(width: 1.w, color: Colors.white),
-                                    ),
-                                    child: Icon(
-                                      Icons.close,
-                                      size: isIpad ? 20.sp : 25.sp,
-                                      color: Colors.white,
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        imageShow = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      height: isIpad ? 35.sp : 40.sp,
+                                      width: isIpad ? 35.w : 40.w,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.black87,
+                                        border: Border.all(width: 1.w, color: Colors.white),
+                                      ),
+                                      child: Icon(
+                                        Icons.close,
+                                        size: isIpad ? 20.sp : 25.sp,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )

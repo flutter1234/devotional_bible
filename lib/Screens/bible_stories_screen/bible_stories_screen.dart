@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:devotional_bible/AdPlugin/Ads/FullScreen/Ads.dart';
 import 'package:devotional_bible/AdPlugin/Ads/Native/NativeRN.dart';
@@ -199,63 +200,68 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                       );
                                       setState(() {});
                                     },
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Container(
-                                          height: isIpad
-                                              ? 120.sp
-                                              : isSmall
-                                                  ? 130.sp
-                                                  : 150.sp,
-                                          width: 250.w,
-                                          decoration: BoxDecoration(
-                                            color: Colors.black54,
-                                            border: Border.all(width: 2.w, color: Colors.white),
-                                            borderRadius: BorderRadius.circular(10.r),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(isIpad ? 7.r : 9.r),
-                                            child: CachedNetworkImage(
-                                              height: isSmall ? 130.sp : 150.sp,
-                                              width: 1.sw,
-                                              imageUrl: dataProvider.featuredList[index]['image'],
-                                              fit: BoxFit.fill,
-                                              errorWidget: (context, url, error) => Container(
-                                                child: Center(
-                                                  child: Icon(
-                                                    Icons.error,
-                                                    color: Colors.white,
-                                                    size: 25.sp,
+                                    child: DelayedWidget(
+                                      animation:  DelayedAnimations.SLIDE_FROM_TOP,
+                                      delayDuration: Duration(milliseconds: 150),
+                                      animationDuration: Duration(seconds: 1),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Container(
+                                            height: isIpad
+                                                ? 120.sp
+                                                : isSmall
+                                                    ? 130.sp
+                                                    : 150.sp,
+                                            width: 250.w,
+                                            decoration: BoxDecoration(
+                                              color: Colors.black54,
+                                              border: Border.all(width: 2.w, color: Colors.white),
+                                              borderRadius: BorderRadius.circular(10.r),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(isIpad ? 7.r : 9.r),
+                                              child: CachedNetworkImage(
+                                                height: isSmall ? 130.sp : 150.sp,
+                                                width: 1.sw,
+                                                imageUrl: dataProvider.featuredList[index]['image'],
+                                                fit: BoxFit.fill,
+                                                errorWidget: (context, url, error) => Container(
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.error,
+                                                      color: Colors.white,
+                                                      size: 25.sp,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              placeholder: (context, url) => Container(
-                                                child: Center(
-                                                  child: CupertinoActivityIndicator(
-                                                    color: Colors.white,
-                                                    radius: 5.r,
+                                                placeholder: (context, url) => Container(
+                                                  child: Center(
+                                                    child: CupertinoActivityIndicator(
+                                                      color: Colors.white,
+                                                      radius: 5.r,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                          height: isIpad ? 50.sp : 60.sp,
-                                          width: isIpad ? 50.w : 60.w,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(width: 4.w, color: Colors.white),
-                                            color: HexColor('9247a9'),
+                                          Container(
+                                            height: isIpad ? 50.sp : 60.sp,
+                                            width: isIpad ? 50.w : 60.w,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(width: 4.w, color: Colors.white),
+                                              color: HexColor('9247a9'),
+                                            ),
+                                            child: Icon(
+                                              Icons.play_arrow,
+                                              size: isIpad ? 40.sp : 45.sp,
+                                              color: Colors.white,
+                                            ),
                                           ),
-                                          child: Icon(
-                                            Icons.play_arrow,
-                                            size: isIpad ? 40.sp : 45.sp,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -343,63 +349,68 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                       );
                                       setState(() {});
                                     },
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Container(
-                                          height: isIpad
-                                              ? 120.sp
-                                              : isSmall
-                                                  ? 130.sp
-                                                  : 150.sp,
-                                          width: 250.w,
-                                          decoration: BoxDecoration(
-                                            color: Colors.black54,
-                                            border: Border.all(width: 2.w, color: Colors.white),
-                                            borderRadius: BorderRadius.circular(10.r),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(isIpad ? 7.r : 9.r),
-                                            child: CachedNetworkImage(
-                                              height: isSmall ? 130.sp : 150.sp,
-                                              width: 1.sw,
-                                              imageUrl: dataProvider.popularList[index]['image'],
-                                              fit: BoxFit.fill,
-                                              errorWidget: (context, url, error) => Container(
-                                                child: Center(
-                                                  child: Icon(
-                                                    Icons.error,
-                                                    color: Colors.white,
-                                                    size: 25.sp,
+                                    child: DelayedWidget(
+                                      animation:  DelayedAnimations.SLIDE_FROM_BOTTOM,
+                                      delayDuration: Duration(milliseconds: 150),
+                                      animationDuration: Duration(seconds: 1),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Container(
+                                            height: isIpad
+                                                ? 120.sp
+                                                : isSmall
+                                                    ? 130.sp
+                                                    : 150.sp,
+                                            width: 250.w,
+                                            decoration: BoxDecoration(
+                                              color: Colors.black54,
+                                              border: Border.all(width: 2.w, color: Colors.white),
+                                              borderRadius: BorderRadius.circular(10.r),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(isIpad ? 7.r : 9.r),
+                                              child: CachedNetworkImage(
+                                                height: isSmall ? 130.sp : 150.sp,
+                                                width: 1.sw,
+                                                imageUrl: dataProvider.popularList[index]['image'],
+                                                fit: BoxFit.fill,
+                                                errorWidget: (context, url, error) => Container(
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.error,
+                                                      color: Colors.white,
+                                                      size: 25.sp,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              placeholder: (context, url) => Container(
-                                                child: Center(
-                                                  child: CupertinoActivityIndicator(
-                                                    color: Colors.white,
-                                                    radius: 5.r,
+                                                placeholder: (context, url) => Container(
+                                                  child: Center(
+                                                    child: CupertinoActivityIndicator(
+                                                      color: Colors.white,
+                                                      radius: 5.r,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                          height: isIpad ? 50.sp : 60.sp,
-                                          width: isIpad ? 50.w : 60.w,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(width: 4.w, color: Colors.white),
-                                            color: HexColor('9247a9'),
+                                          Container(
+                                            height: isIpad ? 50.sp : 60.sp,
+                                            width: isIpad ? 50.w : 60.w,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(width: 4.w, color: Colors.white),
+                                              color: HexColor('9247a9'),
+                                            ),
+                                            child: Icon(
+                                              Icons.play_arrow,
+                                              size: isIpad ? 40.sp : 45.sp,
+                                              color: Colors.white,
+                                            ),
                                           ),
-                                          child: Icon(
-                                            Icons.play_arrow,
-                                            size: isIpad ? 40.sp : 45.sp,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -531,67 +542,72 @@ class _bible_stories_screenState extends State<bible_stories_screen> {
                                                   // print("oneStories =====>>>>>${dataProvider.bibleStoriesList['Bible Stories'][index][dataProvider.keyList[index]][index1][subKeyList[index1]][index2]}");
                                                   setState(() {});
                                                 },
-                                                child: Stack(
-                                                  alignment: Alignment.center,
-                                                  children: [
-                                                    Container(
-                                                      height: isIpad
-                                                          ? 120.sp
-                                                          : isSmall
-                                                              ? 130.sp
-                                                              : 150.sp,
-                                                      width: 250.w,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black54,
-                                                        border: Border.all(width: 2.w, color: Colors.white),
-                                                        borderRadius: BorderRadius.circular(10.r),
-                                                      ),
-                                                      child: ClipRRect(
-                                                        borderRadius: BorderRadius.circular(9.r),
-                                                        child: CachedNetworkImage(
-                                                          height: isIpad
-                                                              ? 120.sp
-                                                              : isSmall
-                                                                  ? 130.sp
-                                                                  : 150.sp,
-                                                          width: 1.sw,
-                                                          imageUrl: dataProvider.bibleStoriesList['Bible Stories'][index][dataProvider.keyList[index]][index1][subKeyList[index1]][index2]['image'],
-                                                          fit: BoxFit.fill,
-                                                          errorWidget: (context, url, error) => Container(
-                                                            child: Center(
-                                                              child: Icon(
-                                                                Icons.error,
-                                                                color: Colors.white,
-                                                                size: 25.sp,
+                                                child: DelayedWidget(
+                                                  animation:  DelayedAnimations.SLIDE_FROM_TOP,
+                                                  delayDuration: Duration(milliseconds: 150),
+                                                  animationDuration: Duration(seconds: 1),
+                                                  child: Stack(
+                                                    alignment: Alignment.center,
+                                                    children: [
+                                                      Container(
+                                                        height: isIpad
+                                                            ? 120.sp
+                                                            : isSmall
+                                                                ? 130.sp
+                                                                : 150.sp,
+                                                        width: 250.w,
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.black54,
+                                                          border: Border.all(width: 2.w, color: Colors.white),
+                                                          borderRadius: BorderRadius.circular(10.r),
+                                                        ),
+                                                        child: ClipRRect(
+                                                          borderRadius: BorderRadius.circular(9.r),
+                                                          child: CachedNetworkImage(
+                                                            height: isIpad
+                                                                ? 120.sp
+                                                                : isSmall
+                                                                    ? 130.sp
+                                                                    : 150.sp,
+                                                            width: 1.sw,
+                                                            imageUrl: dataProvider.bibleStoriesList['Bible Stories'][index][dataProvider.keyList[index]][index1][subKeyList[index1]][index2]['image'],
+                                                            fit: BoxFit.fill,
+                                                            errorWidget: (context, url, error) => Container(
+                                                              child: Center(
+                                                                child: Icon(
+                                                                  Icons.error,
+                                                                  color: Colors.white,
+                                                                  size: 25.sp,
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          placeholder: (context, url) => Container(
-                                                            child: Center(
-                                                              child: CupertinoActivityIndicator(
-                                                                color: Colors.white,
-                                                                radius: 5.r,
+                                                            placeholder: (context, url) => Container(
+                                                              child: Center(
+                                                                child: CupertinoActivityIndicator(
+                                                                  color: Colors.white,
+                                                                  radius: 5.r,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      height: isIpad ? 50.sp : 60.sp,
-                                                      width: isIpad ? 50.w : 60.w,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        border: Border.all(width: 4.w, color: Colors.white),
-                                                        color: HexColor('9247a9'),
+                                                      Container(
+                                                        height: isIpad ? 50.sp : 60.sp,
+                                                        width: isIpad ? 50.w : 60.w,
+                                                        decoration: BoxDecoration(
+                                                          shape: BoxShape.circle,
+                                                          border: Border.all(width: 4.w, color: Colors.white),
+                                                          color: HexColor('9247a9'),
+                                                        ),
+                                                        child: Icon(
+                                                          Icons.play_arrow,
+                                                          size: isIpad ? 40.sp : 45.sp,
+                                                          color: Colors.white,
+                                                        ),
                                                       ),
-                                                      child: Icon(
-                                                        Icons.play_arrow,
-                                                        size: isIpad ? 40.sp : 45.sp,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),

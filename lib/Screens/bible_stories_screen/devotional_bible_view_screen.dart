@@ -184,13 +184,13 @@ class _devotional_bible_view_screenState extends State<devotional_bible_view_scr
                                   child: Text(
                                     textAlign: TextAlign.start,
                                     maxLines: 2,
-                                    "${subKeyList[index]}",
+                                    "${subKeyList[index]}dldldldldlldldldlldldlldldl",
                                     style: GoogleFonts.figtree(
                                       fontSize: isIpad
                                           ? 15.sp
                                           : isSmall
                                               ? 17.sp
-                                              : 20.sp,
+                                              : 18.sp,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700,
                                     ),
