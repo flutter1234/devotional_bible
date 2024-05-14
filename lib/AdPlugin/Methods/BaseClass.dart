@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
-import 'package:applovin_max/applovin_max.dart';
 import 'package:ironsource_adpluginx/ironsource_adpluginx.dart';
 import 'package:provider/provider.dart';
 import 'package:unity_ads_plugin/unity_ads_plugin.dart';
@@ -21,11 +20,6 @@ class BaseClass {
     MainJson mainJson = context.read<MainJson>();
 
     await GoogleInit().onInit();
-    await AppLovinMAX.initialize(
-      mainJson.data!['adIds']['applovin']['id'] != ""
-          ? mainJson.data!['adIds']['applovin']['id']
-          : "xiAs_Fs3BiExPelVuawzyDTU2Sy4GL2d6KB1c7C1loiv64T5oquTwRRIJbHC3qO0qRI_65NChIkGy3U2i6rWXn",
-    );
     print(mainJson.data!['adIds']['ironSource']['appId']);
     print("Is Ids===============>");
     try {
