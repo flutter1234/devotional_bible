@@ -13,7 +13,6 @@ import 'package:devotional_bible/Screens/bible_study_screen/bible_study_detail_s
 import 'package:devotional_bible/Screens/bible_study_screen/bible_study_quiz_screen.dart';
 import 'package:devotional_bible/Screens/bible_study_screen/bible_study_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../Screens/bible_stories_screen/bible_stories_screen.dart';
 
 class Router {
