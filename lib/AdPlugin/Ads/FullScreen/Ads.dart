@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 
 // 🌎 Project imports:
 import '../../AdLoader/AdLoaderProvider.dart';
-import '../../AdsWidget/AppLovin/Interstitial/AppLovinInterstitial.dart';
 import '../../AdsWidget/Google/Interstitial/GoogleInterstitial.dart';
 import '../../AdsWidget/Google/Rewarded Interstitial/GoogleRewardedInterstitial.dart';
 import '../../AdsWidget/Google/Rewarded/GoogleRewarded.dart';
@@ -129,37 +128,6 @@ class AdsRN {
 
                 onComplete();
                 timer.cancel();
-              },
-            );
-          },
-        );
-        break;
-      case 1:
-        AppLovinInterstitial().loadAd(
-          onLoaded: () {
-            timer.cancel();
-          },
-          context: context,
-          onComplete: () {
-            indexIncrement(
-                route,
-                mainJson.data![mainJson.version]['screens'][route]['localClick']
-                        .length -
-                    1);
-            loaderProvider.isAdLoading = false;
-            timer.cancel();
-
-            onComplete();
-          },
-          onFailed: () {
-            failedFullScreen(
-              from: 1,
-              context: context,
-              onComplete: () {
-                loaderProvider.isAdLoading = false;
-                timer.cancel();
-
-                onComplete();
               },
             );
           },
@@ -378,40 +346,6 @@ class AdsRN {
             failedActionBasedAds(
               actionName: actionName,
               from: 0,
-              context: context,
-              onComplete: () {
-                loaderProvider.isAdLoading = false;
-                timer.cancel();
-                onComplete();
-              },
-            );
-          },
-        );
-        break;
-      case 1:
-        AppLovinInterstitial().loadAd(
-          context: context,
-          onLoaded: () {
-            timer.cancel();
-          },
-          onComplete: () {
-            indexIncrement(
-                actionName,
-                mainJson
-                        .data![mainJson.version]['actions'][actionName]
-                            ['localClick']
-                        .length -
-                    1);
-            loaderProvider.isAdLoading = false;
-            timer.cancel();
-            onComplete();
-          },
-          onFailed: () {
-            print("applovin failed");
-
-            failedActionBasedAds(
-              actionName: actionName,
-              from: 1,
               context: context,
               onComplete: () {
                 loaderProvider.isAdLoading = false;
@@ -658,40 +592,6 @@ class AdsRN {
           },
         );
         break;
-      case 1:
-        AppLovinInterstitial().loadAd(
-          context: context,
-          onLoaded: () {
-            timer.cancel();
-          },
-          onComplete: () {
-            indexIncrement(
-                '$route/$actionName',
-                mainJson
-                        .data![mainJson.version]['screens'][route]['actions']
-                            [actionName]['localClick']
-                        .length -
-                    1);
-            loaderProvider.isAdLoading = false;
-            timer.cancel();
-            onComplete();
-          },
-          onFailed: () {
-            print("applovin failed");
-
-            failedScreenActionBasedAds(
-              actionName: actionName,
-              from: 1,
-              context: context,
-              onComplete: () {
-                loaderProvider.isAdLoading = false;
-                timer.cancel();
-                onComplete();
-              },
-            );
-          },
-        );
-        break;
       case 2:
         print("Show ============================>");
         IronSourceFullScreenX ironSourceFullScreenX =
@@ -902,35 +802,6 @@ class AdsRN {
             },
           );
           break;
-        case 1:
-          AppLovinInterstitial().loadAd(
-            context: context,
-            onLoaded: () {
-              timer.cancel();
-            },
-            onComplete: () {
-              indexIncrement(
-                  route,
-                  mainJson
-                          .data![mainJson.version]['screens'][route]
-                              ['localClick']
-                          .length -
-                      1);
-              timer.cancel();
-              onComplete();
-            },
-            onFailed: () {
-              failedFullScreen(
-                from: 1,
-                context: context,
-                onComplete: () {
-                  timer.cancel();
-                  onComplete();
-                },
-              );
-            },
-          );
-          break;
         case 2:
           IronSourceFullScreenX ironSourceFullScreenX =
               IronSourceFullScreenX.onInit(
@@ -1110,38 +981,6 @@ class AdsRN {
               failedActionBasedAds(
                 actionName: actionName,
                 from: 0,
-                context: context,
-                onComplete: () {
-                  timer.cancel();
-                  onComplete();
-                },
-              );
-            },
-          );
-          break;
-        case 1:
-          AppLovinInterstitial().loadAd(
-            context: context,
-            onLoaded: () {
-              timer.cancel();
-            },
-            onComplete: () {
-              indexIncrement(
-                  actionName,
-                  mainJson
-                          .data![mainJson.version]['actions'][actionName]
-                              ['localClick']
-                          .length -
-                      1);
-              timer.cancel();
-              onComplete();
-            },
-            onFailed: () {
-              print("applovin failed");
-
-              failedActionBasedAds(
-                actionName: actionName,
-                from: 1,
                 context: context,
                 onComplete: () {
                   timer.cancel();
@@ -1347,38 +1186,6 @@ class AdsRN {
               failedActionBasedAds(
                 actionName: actionName,
                 from: 0,
-                context: context,
-                onComplete: () {
-                  timer.cancel();
-                  onComplete();
-                },
-              );
-            },
-          );
-          break;
-        case 1:
-          AppLovinInterstitial().loadAd(
-            context: context,
-            onLoaded: () {
-              timer.cancel();
-            },
-            onComplete: () {
-              indexIncrement(
-                  '$route/$actionName',
-                  mainJson
-                          .data![mainJson.version]['screens'][route]['actions']
-                              [actionName]['localClick']
-                          .length -
-                      1);
-              timer.cancel();
-              onComplete();
-            },
-            onFailed: () {
-              print("applovin failed");
-
-              failedActionBasedAds(
-                actionName: actionName,
-                from: 1,
                 context: context,
                 onComplete: () {
                   timer.cancel();
