@@ -55,9 +55,7 @@ class _MyAppState extends State<MyApp> {
           builder: (context, child) {
             return MultiProvider(
               providers: [
-                ChangeNotifierProvider(
-                  create: (context) => Api(),
-                ),
+                ChangeNotifierProvider(create: (context) => Api()),
               ],
               child: MaterialApp(
                 home: AdSplashScreen(

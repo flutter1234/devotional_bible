@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import '../../AdPlugin/Ads/Banner/BannerWrapper.dart';
 import '../../AdPlugin/MainJson/MainJson.dart';
+import '../../AdPlugin/Utils/Alerts/RateUs.dart';
 import '../../Provider/api_provider.dart';
 import '../../main.dart';
 
@@ -176,59 +178,60 @@ class _setting_screenState extends State<setting_screen> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 10.h),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        dataProvider.url = context.read<MainJson>().data!['assets']['shareApp'];
-                      });
-                      dataProvider.launchurl();
-                    },
-                    child: Container(
-                      height: 45.sp,
-                      width: 1.sw,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.w, color: Colors.white),
-                        borderRadius: BorderRadius.circular(30.r),
-                        color: Colors.black45,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.sp),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.feedback_sharp,
-                              size: isIpad
-                                  ? 30.sp
-                                  : isSmall
-                                      ? 30.sp
-                                      : 32.sp,
-                              color: Colors.grey.shade300,
-                            ),
-                            SizedBox(width: 20.w),
-                            Text(
-                              'Share App',
-                              style: GoogleFonts.figtree(
-                                fontSize: isIpad
-                                    ? 20.sp
+                  child: Builder(builder: (contexts) {
+                    return GestureDetector(
+                      onTap: () {
+                        final box = contexts.findRenderObject() as RenderBox?;
+                        Share.share(
+                          "${context.read<MainJson>().data!['assets']['shareApp']}",
+                          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+                        );
+                        setState(() {});
+                      },
+                      child: Container(
+                        height: 45.sp,
+                        width: 1.sw,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1.w, color: Colors.white),
+                          borderRadius: BorderRadius.circular(30.r),
+                          color: Colors.black45,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.feedback_sharp,
+                                size: isIpad
+                                    ? 30.sp
                                     : isSmall
-                                        ? 20.sp
-                                        : 24.sp,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
+                                        ? 30.sp
+                                        : 32.sp,
+                                color: Colors.grey.shade300,
                               ),
-                            ),
-                          ],
+                              SizedBox(width: 20.w),
+                              Text(
+                                'Share App',
+                                style: GoogleFonts.figtree(
+                                  fontSize: isIpad
+                                      ? 20.sp
+                                      : isSmall
+                                          ? 20.sp
+                                          : 24.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                 ),
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      dataProvider.url = context.read<MainJson>().data!['assets']['rateUs'];
-                    });
-                    dataProvider.launchurl();
+                    RateUs().showRateUsDialog();
                   },
                   child: Padding(
                     padding: EdgeInsets.only(top: 10.h),
