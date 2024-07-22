@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../AdPlugin/Ads/Banner/BannerWrapper.dart';
 import '../../AdPlugin/MainJson/MainJson.dart';
 import '../../AdPlugin/Utils/Alerts/RateUs.dart';
@@ -182,6 +182,7 @@ class _setting_screenState extends State<setting_screen> {
                     return GestureDetector(
                       onTap: () {
                         final box = contexts.findRenderObject() as RenderBox?;
+                        print(context.read<MainJson>().data!['assets']['shareApp']);
                         Share.share(
                           "${context.read<MainJson>().data!['assets']['shareApp']}",
                           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
